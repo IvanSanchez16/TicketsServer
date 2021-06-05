@@ -65,6 +65,41 @@ function create(req, res) {
   }
 }
 
+function update(req, res) {
+    if (connection) {
+        const { id } = req.params;
+        const persona = req.body;
+    
+        //Validaciones
+        if (persona.nombre && persona.nombre.length > 50)
+          return res.status(400).send({
+            error: true,
+            mensaje: "La longitud máxima del nombre es de 50",
+          });
+        if (persona.apellidos && persona.apellidos.length > 80)
+          return res.status(400).send({
+            error: true,
+            mensaje: "La longitud máxima del apellido es de 80",
+        });
+        if (persona.telefono && persona.telefono.length > 10)
+          return res.status(400).send({
+            error: true,
+            mensaje: "La longitud máxima del telefono es de 10",
+        });  
+    
+        let sql = `UPDATE personal set ? where id = ${connection.escape(id)}`;
+        connection.query(sql, [persona], (err, resp) => {
+          if (err) res.json(err);
+          else {
+            let mensaje1 = "";
+            if (resp.affectedRows == 0)
+              mensaje1 = "Persona no encontrada";
+            res.json({ data: resp, mensaje: mensaje1 });
+          }
+        });
+    }
+}
+
 function destroy(req, res) {
   if (connection) {
     const { id } = req.params;
@@ -83,5 +118,6 @@ module.exports = {
   index,
   show,
   create,
+  update,
   destroy,
 };
