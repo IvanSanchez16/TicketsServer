@@ -11,6 +11,7 @@ require('./config/connection');
 
 app.use(require('./routes/categoriasRoutes'));
 app.use(require('./routes/personasRoutes'));
+app.use(require('./routes/ticketsRoutes'));
 
 app.listen(app.get('port'), (error) => {
     if (error) 
