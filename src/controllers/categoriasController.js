@@ -50,7 +50,7 @@ function create(req, res){
          if(err)
             res.json(err);
          else
-            res.json({data: resp, mensaje: "Persona creada con exito"});
+            res.json({data: resp, mensaje: "Categoría creada con exito"});
       });
    }
 }
@@ -63,7 +63,10 @@ function destroy(req, res){
       if(err)
          res.json(err);
       else
-         res.json(resp);
+         res.json({
+            data: resp,
+            mensaje: "Categoria borrada con éxito"
+        });
       });
    }
 }

@@ -10,6 +10,7 @@ app.use(express.json());
 require('./config/connection');
 
 app.use(require('./routes/categoriasRoutes'));
+app.use(require('./routes/personasRoutes'));
 
 app.listen(app.get('port'), (error) => {
     if (error) 
